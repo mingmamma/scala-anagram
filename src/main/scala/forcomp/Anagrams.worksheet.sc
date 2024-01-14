@@ -91,7 +91,7 @@ def sentenceAnagrams(sentence: Sentence): List[Sentence] =
 
     sentenceAnagramFromOccurance(sentenceOccurrences(sentence))
 
-// Memo WIP
+
 //   def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] =
 //       def sentenceAnagramFromOccurance(sentenceOccurance: Occurrences, memo: Map[Occurrences, List[Word]]): List[Sentence] =
 //         if sentenceOccurance.isEmpty then List(List.empty)
@@ -117,8 +117,6 @@ def sentenceAnagrams(sentence: Sentence): List[Sentence] =
 //       sentenceAnagramFromOccurance(sentenceOccurrences(sentence), Map())
 
 sentenceAnagrams(List("tea"))
-
-sentenceAnagramsMemo(List("tea"))
 
 sentenceAnagrams(List("is", "Lev"))
 

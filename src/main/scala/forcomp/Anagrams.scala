@@ -178,32 +178,31 @@ object Anagrams extends AnagramsInterface:
       yield anagramOfSubSetOccur :: anagramsFromRemaining
     
     sentenceAnagramFromOccurance(sentenceOccurrences(sentence))
-
-  def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] =
-      def sentenceAnagramFromOccurance(sentenceOccurance: Occurrences, memo: Map[Occurrences, List[Word]]): List[Sentence] =
-        if sentenceOccurance.isEmpty then List(List.empty)
-        else
-            combinations(sentenceOccurance).flatMap(subSetOccur =>
-                // if (memo.contains(subSetOccur)) {
-                //   val anagramsOfSubSetOccur = memo(subSetOccur)
-                // }
-                // else {
-                //   val anagramsOfSubSetOccur = dictionaryByOccurrences.getOrElse(subSetOccur, Nil)
-                //   // memo.updated(subSetOccur, dictionaryByOccurrences.getOrElse(subSetOccur, Nil))
-                // }
+    
+// Memo WIP
+  // def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] =
+  //     def sentenceAnagramFromOccurance(sentenceOccurance: Occurrences, memo: Map[Occurrences, List[Word]]): List[Sentence] =
+  //       if sentenceOccurance.isEmpty then List(List.empty)
+  //       else
+  //           combinations(sentenceOccurance).flatMap(subSetOccur =>
+  //               // if (memo.contains(subSetOccur)) {
+  //               //   val anagramsOfSubSetOccur = memo(subSetOccur)
+  //               // }
+  //               // else {
+  //               //   val anagramsOfSubSetOccur = dictionaryByOccurrences.getOrElse(subSetOccur, Nil)
+  //               //   // memo.updated(subSetOccur, dictionaryByOccurrences.getOrElse(subSetOccur, Nil))
+  //               // }
               
-              val anagramsOfSubSetOccur = 
-                if (memo.contains(subSetOccur)) then memo(subSetOccur)
-                else dictionaryByOccurrences.getOrElse(subSetOccur, Nil)
-              anagramsOfSubSetOccur.flatMap(anagramOfSubSetOccur =>
-                sentenceAnagramFromOccurance(subtract(sentenceOccurance, subSetOccur), memo).map(anagramsFromRemaining =>
-                  anagramOfSubSetOccur :: anagramsFromRemaining
-                )
-              )
-            )
-      sentenceAnagramFromOccurance(sentenceOccurrences(sentence), Map())
-            
-
+  //             val anagramsOfSubSetOccur = 
+  //               if (memo.contains(subSetOccur)) then memo(subSetOccur)
+  //               else dictionaryByOccurrences.getOrElse(subSetOccur, Nil)
+  //             anagramsOfSubSetOccur.flatMap(anagramOfSubSetOccur =>
+  //               sentenceAnagramFromOccurance(subtract(sentenceOccurance, subSetOccur), memo).map(anagramsFromRemaining =>
+  //                 anagramOfSubSetOccur :: anagramsFromRemaining
+  //               )
+  //             )
+  //           )
+  //     sentenceAnagramFromOccurance(sentenceOccurrences(sentence), Map())
 
 
 object Dictionary:
