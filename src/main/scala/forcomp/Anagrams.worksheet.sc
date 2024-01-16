@@ -92,41 +92,36 @@ def sentenceAnagrams(sentence: Sentence): List[Sentence] =
     sentenceAnagramFromOccurance(sentenceOccurrences(sentence))
 
 
-//   def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] =
-//       def sentenceAnagramFromOccurance(sentenceOccurance: Occurrences, memo: Map[Occurrences, List[Word]]): List[Sentence] =
-//         if sentenceOccurance.isEmpty then List(List.empty)
-//         else
-//             combinations(sentenceOccurance).flatMap(subSetOccur =>
-//                 // if (memo.contains(subSetOccur)) {
-//                 //   val anagramsOfSubSetOccur = memo(subSetOccur)
-//                 // }
-//                 // else {
-//                 //   val anagramsOfSubSetOccur = dictionaryByOccurrences.getOrElse(subSetOccur, Nil)
-//                 //   // memo.updated(subSetOccur, dictionaryByOccurrences.getOrElse(subSetOccur, Nil))
-//                 // }
-              
-//               val anagramsOfSubSetOccur = 
-//                 if (memo.contains(subSetOccur)) then memo(subSetOccur)
-//                 else dictionaryByOccurrences.getOrElse(subSetOccur, Nil)
-//               anagramsOfSubSetOccur.flatMap(anagramOfSubSetOccur =>
-//                 sentenceAnagramFromOccurance(subtract(sentenceOccurance, subSetOccur), memo).map(anagramsFromRemaining =>
-//                   anagramOfSubSetOccur :: anagramsFromRemaining
-//                 )
-//               )
-//             )
-//       sentenceAnagramFromOccurance(sentenceOccurrences(sentence), Map())
+  def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] =
+      val memo: collection.mutable.Map[Occurrences, List[Word]] = collection.mutable.Map.empty
+      def sentenceAnagramFromOccurance(sentenceOccurance: Occurrences): List[Sentence] =
+        if sentenceOccurance.isEmpty then List(List.empty)
+        else
+            combinations(sentenceOccurance).flatMap(subsetOccur =>
+              val anagramsOfsubsetOccur = memo.getOrElseUpdate(subsetOccur, dictionaryByOccurrences.getOrElse(subsetOccur, Nil))
+              anagramsOfsubsetOccur.flatMap(anagramOfsubsetOccur =>
+                sentenceAnagramFromOccurance(subtract(sentenceOccurance, subsetOccur)).map(anagramsFromRemaining =>
+                  anagramOfsubsetOccur :: anagramsFromRemaining
+                )
+              )
+            )
+      sentenceAnagramFromOccurance(sentenceOccurrences(sentence))
 
 sentenceAnagrams(List("tea"))
+
+sentenceAnagramsMemo(List("tea"))
 
 sentenceAnagrams(List("is", "Lev"))
 
 sentenceAnagrams(List("yes", "man"))
 
+sentenceAnagramsMemo(List("yes", "man"))
+
 sentenceAnagrams(List("iloveyou"))
 
 sentenceAnagrams(List("Linux", "rulez"))
 
-sentenceAnagrams(List("Linux", "rulez"))
+sentenceAnagramsMemo(List("Linux", "rulez"))
 
 
 
